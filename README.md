@@ -49,6 +49,10 @@ The project is designed around a scalable architecture where the frontend, backe
 - Pull-request based development
 - Dependency and security maintenance
 
+## Demo
+
+![AI-Native Full-Stack Platform](./apps/web/public/images/AI-SaaS.png)
+
 ## Architecture
 
 ```text
@@ -75,8 +79,3 @@ The project is designed around a scalable architecture where the frontend, backe
         │     Azure      │
         │ Cloud Services │
         └────────────────┘
-
-
-## Demo
-
-![AI-Native Full-Stack Platform](./apps/web/public/images/AI-SaaS.png)
