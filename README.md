@@ -51,6 +51,8 @@ The project is designed around a scalable architecture where the frontend, backe
 
 ## Demo
 
+[🚀 Live Demo](https://ai-fullstack-platform.netlify.app/)
+
 ![AI-Native Full-Stack Platform](./apps/web/public/images/AI-SaaS.png)
 
 ## Architecture
