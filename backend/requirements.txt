@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+strawberry-graphql[fastapi]
+pydantic
+pydantic-settings
+sqlalchemy
+psycopg[binary]
+httpx
+pytest
+pytest-asyncio
