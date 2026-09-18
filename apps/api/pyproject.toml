@@ -1,5 +1,8 @@
 [tool.ruff]
 target-version = "py39"
 
+[tool.ruff.lint]
+ignore = ["UP006", "UP035", "UP045", "FA100", "FA102"]
+
 [tool.mypy]
 explicit_package_bases = true

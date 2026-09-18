@@ -1,4 +1,4 @@
-from __future__ import annotations
+from typing import Optional
 
 import strawberry
 
@@ -15,7 +15,7 @@ class AIResult:
 @strawberry.input
 class AIGenerateInput:
     prompt: str
-    system_prompt: str | None = None
+    system_prompt: Optional[str] = None
     temperature: float = 0.2
 
 
