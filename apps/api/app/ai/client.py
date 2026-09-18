@@ -9,14 +9,16 @@ class AIClient:
     def __init__(self) -> None:
         settings = get_settings()
 
-        kwargs = {
-            "api_key": settings.ai_api_key,
-        }
-
         if settings.ai_base_url:
-            kwargs["base_url"] = settings.ai_base_url
+            self.client = AsyncOpenAI(
+                api_key=settings.ai_api_key,
+                base_url=settings.ai_base_url,
+            )
+        else:
+            self.client = AsyncOpenAI(
+                api_key=settings.ai_api_key,
+            )
 
-        self.client = AsyncOpenAI(**kwargs)
         self.model = settings.ai_model
 
     async def generate(

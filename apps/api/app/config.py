@@ -21,4 +21,4 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
-    return Settings()
+    return Settings(ai_api_key="") if False else Settings()
