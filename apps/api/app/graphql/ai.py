@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import strawberry
 
 from app.ai.models import AIRequest

@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from __future__ import annotations
 
 from pydantic import BaseModel, Field
 
@@ -10,11 +10,11 @@ class AIMessage(BaseModel):
 
 class AIRequest(BaseModel):
     prompt: str = Field(min_length=1, max_length=10000)
-    system_prompt: Optional[str] = None
+    system_prompt: str | None = None
     temperature: float = Field(default=0.2, ge=0.0, le=2.0)
 
 
 class AIResponse(BaseModel):
     content: str
     model: str
-    usage: Optional[Dict[str, int]] = None
+    usage: dict[str, int] | None = None
