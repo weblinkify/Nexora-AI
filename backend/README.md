@@ -1,4 +1,4 @@
-AI-NATIVE FULL-STACK PLATFORM
+Nexora AI
 BACKEND
 ==============================
 
@@ -103,7 +103,7 @@ GET /
 Response:
 
 {
-    "name": "AI-Native Full-Stack Platform",
+    "name": "Nexora AI",
     "status": "running"
 }
 

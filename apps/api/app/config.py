@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    app_name: str = "AI-Native Full-Stack Platform"
+    app_name: str = "Nexora AI"
     environment: str = "development"
 
     ai_api_key: str

@@ -1,4 +1,4 @@
-# 🤖 AI-Native Full-Stack Platform
+# 🤖 Nexora AI
 
 Production-oriented AI SaaS platform built with **Next.js, TypeScript, FastAPI, Python, GraphQL, Docker, Azure, and LLM APIs**.
 
@@ -1048,4 +1048,4 @@ git push
 
 [🚀 Live Demo](https://ai-fullstack-platform.netlify.app/)
 
-![AI-Native Full-Stack Platform](./apps/web/public/images/AI-SaaS.png)
+![Nexora AI](./apps/web/public/images/AI-SaaS.png)

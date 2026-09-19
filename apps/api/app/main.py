@@ -5,7 +5,7 @@ from app.ai.models import AIRequest, AIResponse
 from app.ai.service import AIService
 
 app = FastAPI(
-    title="AI-Native Full-Stack Platform",
+    title="Nexora AI",
     version="1.0.0",
 )
 

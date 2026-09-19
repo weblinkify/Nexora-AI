@@ -6,7 +6,7 @@ from app.graphql.context import get_context
 from app.graphql.schema import schema
 
 app = FastAPI(
-    title="AI-Native Full-Stack Platform",
+    title="Nexora AI",
     version="0.1.0",
 )
 
@@ -29,6 +29,6 @@ app.include_router(
 @app.get("/")
 async def root() -> dict[str, str]:
     return {
-        "name": "AI-Native Full-Stack Platform",
+        "name": "Nexora AI",
         "status": "running",
     }
