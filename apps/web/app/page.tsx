@@ -1,36 +1,33 @@
-import Link from "next/link";
-import { Dashboard } from "@/components/Dashboard";
+import AIChat from "../components/AIChat";
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
-      <header className="border-b border-white/10">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <Link
-            href="/"
-            className="text-lg font-semibold tracking-tight"
-          >
-            AI Native
-          </Link>
+    <main className="min-h-screen">
+      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 py-8">
+        <header className="mb-12 flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">
+              Nexora AI
+            </h1>
 
-          <nav className="flex items-center gap-6 text-sm text-slate-300">
-            <Link href="/" className="hover:text-white">
-              Dashboard
-            </Link>
+            <p className="mt-1 text-sm text-zinc-500">
+              Build intelligent applications. Ship them like software.
+            </p>
+          </div>
 
-            <a
-              href="http://localhost:8000/docs"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-white"
-            >
-              API
-            </a>
-          </nav>
-        </div>
-      </header>
+          <div className="rounded-full border border-zinc-800 bg-zinc-900 px-3 py-1 text-xs text-zinc-400">
+            AI Workspace
+          </div>
+        </header>
 
-      <Dashboard />
+        <section className="flex flex-1 items-center justify-center">
+          <AIChat />
+        </section>
+
+        <footer className="mt-12 border-t border-zinc-800 pt-6 text-center text-xs text-zinc-600">
+          Nexora AI · AI-native full-stack platform
+        </footer>
+      </div>
     </main>
   );
 }

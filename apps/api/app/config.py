@@ -10,8 +10,9 @@ class Settings(BaseSettings):
     environment: str = "development"
 
     ai_api_key: str = Field(default="")
-    ai_model: str = "your_model_name"
+    ai_model: str = "local-mock"
     ai_base_url: Optional[str] = None
+    ai_mock_mode: bool = False
 
     model_config = SettingsConfigDict(
         env_file=".env",

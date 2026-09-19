@@ -1,24 +1,19 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ApolloProviderWrapper } from "@/components/ApolloProvider";
 
 export const metadata: Metadata = {
-  title: "AI Native Platform",
-  description: "Production-oriented AI SaaS platform"
+  title: "Nexora AI",
+  description: "Build intelligent applications. Ship them like software.",
 };
 
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body>
-        <ApolloProviderWrapper>
-          {children}
-        </ApolloProviderWrapper>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
