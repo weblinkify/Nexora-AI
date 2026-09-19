@@ -8,7 +8,7 @@ Nexora AI is an app where you can **ask an AI questions and get smart answers**.
 
 It combines a **FastAPI backend, AI services, GraphQL, Next.js frontend, Docker, automated testing, and cloud-ready infrastructure** into one scalable application.
 
-🔗 **Live Demo:** https://ai-fullstack-platform.netlify.app/
+🔗 **Live Demo:** https://nexora-ai-native.netlify.app/
 
 ![Nexora AI](apps/web/public/images/general.png)
 
@@ -419,7 +419,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 Production frontend:
 
 ```text
-https://ai-fullstack-platform.netlify.app/
+https://nexora-ai-native.netlify.app/
 ```
 
 ---
