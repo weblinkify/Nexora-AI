@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import StreamingResponse
 
 from app.ai.exceptions import AIProviderError
 from app.ai.models import AIRequest, AIResponse
@@ -26,3 +27,12 @@ async def generate_ai(request: AIRequest) -> AIResponse:
             status_code=502,
             detail="AI provider request failed",
         ) from exc
+
+@app.post("/api/ai/stream")
+async def stream_ai(request: AIRequest) -> StreamingResponse:
+    ai_service = AIService()
+
+    return StreamingResponse(
+        ai_service.stream(request),
+        media_type="text/plain",
+    )

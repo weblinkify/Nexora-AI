@@ -1,3 +1,5 @@
+from typing import AsyncIterator
+
 from openai import AsyncOpenAI
 
 from app.ai.exceptions import AIProviderError
@@ -32,14 +34,8 @@ class AIClient:
             response = await self.client.chat.completions.create(
                 model=self.model,
                 messages=[
-                    {
-                        "role": "system",
-                        "content": system_prompt,
-                    },
-                    {
-                        "role": "user",
-                        "content": user_prompt,
-                    },
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
                 ],
                 temperature=temperature,
             )
@@ -64,4 +60,33 @@ class AIClient:
         except Exception as exc:
             raise AIProviderError(
                 "AI provider request failed"
+            ) from exc
+
+    async def stream(
+        self,
+        *,
+        system_prompt: str,
+        user_prompt: str,
+        temperature: float = 0.2,
+    ) -> AsyncIterator[str]:
+        try:
+            response = await self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
+                temperature=temperature,
+                stream=True,
+            )
+
+            async for chunk in response:
+                content = chunk.choices[0].delta.content
+
+                if content:
+                    yield content
+
+        except Exception as exc:
+            raise AIProviderError(
+                "AI streaming request failed"
             ) from exc
