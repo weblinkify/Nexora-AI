@@ -10,6 +10,8 @@ It combines a **FastAPI backend, AI services, GraphQL, Next.js frontend, Docker,
 
 🔗 **Live Demo:** https://ai-fullstack-platform.netlify.app/
 
+![Nexora AI](apps/web/public/images/general.png)
+
 ---
 
 NEXORA AI VS CHATGPT
