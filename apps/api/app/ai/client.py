@@ -1,5 +1,5 @@
 import asyncio
-from typing import AsyncIterator
+from typing import AsyncIterator, Optional
 
 from openai import AsyncOpenAI
 
@@ -14,9 +14,9 @@ class AIClient:
 
         self.mock_mode = settings.ai_mock_mode
         self.model = settings.ai_model
+        self.client: Optional[AsyncOpenAI] = None
 
         if self.mock_mode:
-            self.client = None
             return
 
         if settings.ai_base_url:
@@ -46,6 +46,9 @@ class AIClient:
                 model="local-mock",
                 usage=None,
             )
+
+        if self.client is None:
+            raise AIProviderError("AI client is not configured")
 
         try:
             response = await self.client.chat.completions.create(
@@ -92,7 +95,6 @@ class AIClient:
         user_prompt: str,
         temperature: float = 0.2,
     ) -> AsyncIterator[str]:
-
         if self.mock_mode:
             text = (
                 "This is a local Nexora AI mock response. "
@@ -106,6 +108,9 @@ class AIClient:
                 await asyncio.sleep(0.03)
 
             return
+
+        if self.client is None:
+            raise AIProviderError("AI client is not configured")
 
         try:
             response = await self.client.chat.completions.create(
