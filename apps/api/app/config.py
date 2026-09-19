@@ -1,6 +1,7 @@
 from functools import lru_cache
 from typing import Optional
 
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -8,8 +9,8 @@ class Settings(BaseSettings):
     app_name: str = "Nexora AI"
     environment: str = "development"
 
-    ai_api_key: str
-    ai_model: str = "gpt-5.6"
+    ai_api_key: str = Field(default="")
+    ai_model: str = "your_model_name"
     ai_base_url: Optional[str] = None
 
     model_config = SettingsConfigDict(
@@ -21,4 +22,4 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
-    return Settings(ai_api_key="") if False else Settings()
+    return Settings()
