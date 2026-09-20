@@ -38,12 +38,12 @@ class AIClient:
         temperature: float = 0.2,
     ) -> AIResponse:
         if self.mock_mode:
-            content, usage = await self.demo.generate(user_prompt)
+            demo_content, demo_usage = await self.demo.generate(user_prompt)
 
             return AIResponse(
-                content=content,
+                content=demo_content,
                 model="nexora-demo",
-                usage=usage,
+                usage=demo_usage,
             )
 
         if self.client is None:
@@ -89,29 +89,31 @@ class AIClient:
         temperature: float = 0.2,
     ) -> AsyncIterator[str]:
         if self.mock_mode:
-            async for chunk in self.demo.stream(user_prompt):
-                yield chunk
+            async for demo_chunk in self.demo.stream(user_prompt):
+                yield demo_chunk
             return
 
         if self.client is None:
             raise AIProviderError("AI client is not configured")
 
         try:
-            stream = await self.client.chat.completions.create(
-                model=self.model,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt},
-                ],
-                temperature=temperature,
-                stream=True,
+            completion_stream = await (
+                self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt},
+                    ],
+                    temperature=temperature,
+                    stream=True,
+                )
             )
 
-            async for chunk in stream:
-                content = chunk.choices[0].delta.content
+            async for stream_chunk in completion_stream:
+                chunk_content = stream_chunk.choices[0].delta.content
 
-                if content:
-                    yield content
+                if chunk_content:
+                    yield chunk_content
 
         except Exception as exc:
             raise AIProviderError(
