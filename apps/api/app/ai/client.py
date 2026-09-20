@@ -1,4 +1,3 @@
-import asyncio
 from typing import AsyncIterator, Optional
 
 from openai import AsyncOpenAI
