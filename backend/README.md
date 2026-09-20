@@ -340,3 +340,37 @@ Early development.
 The backend is being developed incrementally with a focus on
 maintainability, scalability, security, testing, and production
 deployment.
+
+## Backend Development
+
+```bash
+cd apps/api
+source .venv/bin/activate
+```
+
+### Run API
+
+```bash
+python -m uvicorn app.main:app --reload --port 8000
+```
+
+API: `http://localhost:8000`
+Docs: `http://localhost:8000/docs`
+
+### Verify
+
+```bash
+python -m uvicorn --version
+python -m ruff check . --fix
+python -m mypy app
+python -m pytest -v
+```
+
+### Full Check
+
+```bash
+python -m ruff check . --fix
+python -m ruff check .
+python -m mypy app
+python -m pytest -v
+```
