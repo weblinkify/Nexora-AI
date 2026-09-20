@@ -3,6 +3,7 @@ from typing import AsyncIterator, Optional
 
 from openai import AsyncOpenAI
 
+from app.ai.demo import DemoAI
 from app.ai.exceptions import AIProviderError
 from app.ai.models import AIResponse
 from app.config import get_settings
@@ -14,6 +15,7 @@ class AIClient:
 
         self.mock_mode = settings.ai_mock_mode
         self.model = settings.ai_model
+        self.demo = DemoAI()
         self.client: Optional[AsyncOpenAI] = None
 
         if self.mock_mode:
@@ -37,14 +39,12 @@ class AIClient:
         temperature: float = 0.2,
     ) -> AIResponse:
         if self.mock_mode:
+            content, usage = await self.demo.generate(user_prompt)
+
             return AIResponse(
-                content=(
-                    "This is a local Nexora AI mock response. "
-                    "Your frontend and backend are connected "
-                    "successfully without an external AI token."
-                ),
-                model="local-mock",
-                usage=None,
+                content=content,
+                model="nexora-demo",
+                usage=usage,
             )
 
         if self.client is None:
@@ -54,14 +54,8 @@ class AIClient:
             response = await self.client.chat.completions.create(
                 model=self.model,
                 messages=[
-                    {
-                        "role": "system",
-                        "content": system_prompt,
-                    },
-                    {
-                        "role": "user",
-                        "content": user_prompt,
-                    },
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
                 ],
                 temperature=temperature,
             )
@@ -96,17 +90,8 @@ class AIClient:
         temperature: float = 0.2,
     ) -> AsyncIterator[str]:
         if self.mock_mode:
-            text = (
-                "This is a local Nexora AI mock response. "
-                "The frontend is connected to FastAPI and "
-                "the response is being streamed without an "
-                "external AI API token."
-            )
-
-            for word in text.split():
-                yield word + " "
-                await asyncio.sleep(0.03)
-
+            async for chunk in self.demo.stream(user_prompt):
+                yield chunk
             return
 
         if self.client is None:
@@ -116,14 +101,8 @@ class AIClient:
             response = await self.client.chat.completions.create(
                 model=self.model,
                 messages=[
-                    {
-                        "role": "system",
-                        "content": system_prompt,
-                    },
-                    {
-                        "role": "user",
-                        "content": user_prompt,
-                    },
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
                 ],
                 temperature=temperature,
                 stream=True,
