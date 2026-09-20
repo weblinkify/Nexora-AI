@@ -53,8 +53,14 @@ class AIClient:
             response = await self.client.chat.completions.create(
                 model=self.model,
                 messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt},
+                    {
+                        "role": "system",
+                        "content": system_prompt,
+                    },
+                    {
+                        "role": "user",
+                        "content": user_prompt,
+                    },
                 ],
                 temperature=temperature,
             )
@@ -91,22 +97,27 @@ class AIClient:
         if self.mock_mode:
             async for demo_chunk in self.demo.stream(user_prompt):
                 yield demo_chunk
+
             return
 
         if self.client is None:
             raise AIProviderError("AI client is not configured")
 
         try:
-            completion_stream = await (
-                self.client.chat.completions.create(
-                    model=self.model,
-                    messages=[
-                        {"role": "system", "content": system_prompt},
-                        {"role": "user", "content": user_prompt},
-                    ],
-                    temperature=temperature,
-                    stream=True,
-                )
+            completion_stream = await self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": system_prompt,
+                    },
+                    {
+                        "role": "user",
+                        "content": user_prompt,
+                    },
+                ],
+                temperature=temperature,
+                stream=True,
             )
 
             async for stream_chunk in completion_stream:
