@@ -61,7 +61,7 @@ class AIClient:
 
             message = response.choices[0].message.content or ""
 
-            usage = None
+            usage: Optional[dict[str, int]] = None
 
             if response.usage:
                 usage = {
@@ -97,7 +97,7 @@ class AIClient:
             raise AIProviderError("AI client is not configured")
 
         try:
-            response = await self.client.chat.completions.create(
+            stream = await self.client.chat.completions.create(
                 model=self.model,
                 messages=[
                     {"role": "system", "content": system_prompt},
@@ -107,7 +107,7 @@ class AIClient:
                 stream=True,
             )
 
-            async for chunk in response:
+            async for chunk in stream:
                 content = chunk.choices[0].delta.content
 
                 if content:
