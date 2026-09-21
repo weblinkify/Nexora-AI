@@ -5,6 +5,7 @@ from fastapi.responses import StreamingResponse
 from app.ai.exceptions import AIProviderError
 from app.ai.models import AIRequest, AIResponse
 from app.ai.service import AIService
+from app.architecture_export import router as architecture_export_router
 from app.projects.router import router as project_router
 
 app = FastAPI(
@@ -25,7 +26,7 @@ app.add_middleware(
 )
 
 app.include_router(project_router)
-
+app.include_router(architecture_export_router)
 
 @app.get("/health")
 async def health() -> dict[str, str]:

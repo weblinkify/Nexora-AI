@@ -85,7 +85,7 @@ export default function NewProjectPage() {
       if (!response.ok) {
         throw new Error(
           extractError(data) ||
-          "Unable to architect this idea.",
+            "Unable to architect this idea.",
         );
       }
 
@@ -127,7 +127,7 @@ export default function NewProjectPage() {
       if (!response.ok) {
         throw new Error(
           extractError(data) ||
-          "Unable to generate the application code.",
+            "Unable to generate the application code.",
         );
       }
 
@@ -143,6 +143,104 @@ export default function NewProjectPage() {
     }
   }
 
+  function exportArchitecture() {
+    if (!project) return;
+
+    const bulletList = (items: string[]) =>
+      items.length
+        ? items.map((item) => `- ${item}`).join("\n")
+        : "- None specified";
+
+    const numberedList = (items: string[]) =>
+      items.length
+        ? items
+            .map((item, index) => `${index + 1}. ${item}`)
+            .join("\n")
+        : "No implementation plan provided.";
+
+    const markdown = `# ${project.title}
+
+## Nexora AI Architecture Brief
+
+### Executive Summary
+
+${project.summary}
+
+---
+
+## Product Capabilities
+
+${bulletList(project.features)}
+
+---
+
+## System Architecture
+
+### Frontend
+
+${bulletList(project.architecture.frontend)}
+
+### Backend
+
+${bulletList(project.architecture.backend)}
+
+### Data Layer
+
+${bulletList(project.architecture.database)}
+
+### Infrastructure
+
+${bulletList(project.architecture.infrastructure)}
+
+---
+
+## API Surface
+
+${bulletList(project.api)}
+
+---
+
+## Data Model
+
+${bulletList(project.database)}
+
+---
+
+## Implementation Plan
+
+${numberedList(project.implementation_plan)}
+
+---
+
+## Nexora AI
+
+Architecture generated from the original product requirements by Nexora AI.
+`;
+
+    const blob = new Blob([markdown], {
+      type: "text/markdown;charset=utf-8",
+    });
+
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+
+    const filename = project.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+
+    anchor.href = url;
+    anchor.download = `${
+      filename || "nexora-project"
+    }-architecture.md`;
+
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+
+    URL.revokeObjectURL(url);
+  }
+
   function resetProject() {
     setProject(null);
     setCode(null);
@@ -151,7 +249,7 @@ export default function NewProjectPage() {
 
   return (
     <main className="min-h-screen bg-[#212121] text-white">
-      <div className="mx-auto max-w-[1400px] pb-6 py-8">
+      <div className="mx-auto max-w-[1180px] py-8 pb-6">
         {!project && !loadingArchitecture && (
           <IdeaComposer
             idea={idea}
@@ -172,12 +270,11 @@ export default function NewProjectPage() {
             error={error}
             onGenerateCode={generateCode}
             onReset={resetProject}
+            onExportArchitecture={exportArchitecture}
           />
         )}
 
-        {loadingCode && (
-          <CodeLoading />
-        )}
+        {loadingCode && <CodeLoading />}
 
         {code && !loadingCode && (
           <CodeWorkspace
@@ -209,7 +306,6 @@ function IdeaComposer({
   return (
     <section className="mx-auto mt-5 max-w-4xl">
       <div className="text-center">
-
         <h1 className="mt-6 text-5xl font-semibold tracking-tight md:text-7xl">
           Turn an idea into
           <span className="block text-white/35">
@@ -220,7 +316,8 @@ function IdeaComposer({
         <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-white/40">
           Nexora AI transforms a product idea into requirements,
           architecture, APIs, data models, infrastructure,
-          implementation tasks, and eventually production-ready code.
+          implementation tasks, and eventually production-ready
+          code.
         </p>
       </div>
 
@@ -330,11 +427,13 @@ function ArchitectureResult({
   error,
   onGenerateCode,
   onReset,
+  onExportArchitecture,
 }: {
   project: ProjectResponse;
   error: string;
   onGenerateCode: () => void;
   onReset: () => void;
+  onExportArchitecture: () => void;
 }) {
   return (
     <section className="mt-14 space-y-6">
@@ -353,12 +452,21 @@ function ArchitectureResult({
           </p>
         </div>
 
-        <button
-          onClick={onReset}
-          className="rounded-xl border border-white/10 px-4 py-2 text-xs text-white/40 transition hover:bg-white/5"
-        >
-          Start over
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={onExportArchitecture}
+            className="rounded-xl border border-white/10 px-4 py-2 text-xs text-white/50 transition hover:bg-white/5 hover:text-white"
+          >
+            Export Architecture
+          </button>
+
+          <button
+            onClick={onReset}
+            className="rounded-xl border border-white/10 px-4 py-2 text-xs text-white/40 transition hover:bg-white/5"
+          >
+            Start over
+          </button>
+        </div>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-4">
@@ -471,8 +579,8 @@ function ArchitectureResult({
 
             <p className="mt-2 max-w-xl text-sm leading-6 text-white/35">
               Nexora will use this architecture and your original
-              product idea to generate a coherent full-stack starter
-              application.
+              product idea to generate a coherent full-stack
+              starter application.
             </p>
           </div>
 
@@ -573,13 +681,16 @@ function CodeWorkspace({
 
     anchor.href = url;
     anchor.download = `${code.project_name}.json`;
+
+    document.body.appendChild(anchor);
     anchor.click();
+    anchor.remove();
 
     URL.revokeObjectURL(url);
   }
 
   return (
-    <section className="mt-14 space-y-6">
+    <section className="mt-2 space-y-6">
       <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
         <div>
           <p className="text-xs uppercase tracking-[0.2em] text-white/25">
@@ -700,8 +811,7 @@ function CodeWorkspace({
             </h2>
 
             <p className="mt-2 text-sm text-white/35">
-              {project?.title ??
-                "Generated application"}{" "}
+              {project?.title ?? "Generated application"}{" "}
               has been converted into a full-stack starter
               codebase.
             </p>
@@ -800,9 +910,9 @@ function ArchitectureCard({
       <h3 className="font-medium">{title}</h3>
 
       <div className="mt-5 space-y-2">
-        {items.map((item) => (
+        {items.map((item, index) => (
           <div
-            key={item}
+            key={`${item}-${index}`}
             className="rounded-lg bg-[#303030] px-3 py-2.5 text-sm text-gray-200"
           >
             {item}
@@ -831,12 +941,13 @@ function ListCard({
       </p>
 
       <div className="mt-5 space-y-3">
-        {items.map((item) => (
+        {items.map((item, index) => (
           <div
-            key={item}
+            key={`${item}-${index}`}
             className="flex gap-3 text-sm text-white/50"
           >
             <span className="text-white/20">→</span>
+
             <span>{item}</span>
           </div>
         ))}
@@ -943,9 +1054,7 @@ function fileIcon(language: string) {
     return "MD";
   }
 
-  if (
-    normalized.includes("docker")
-  ) {
+  if (normalized.includes("docker")) {
     return "DO";
   }
 
