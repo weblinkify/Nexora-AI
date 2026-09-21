@@ -5,14 +5,89 @@ from typing import AsyncIterator
 class DemoAI:
     """Local AI simulator for demos and development."""
 
+    def _project_response(self, prompt: str) -> str:
+        return """
+{
+  "title": "AI Customer Support Platform",
+  "summary": "A full-stack SaaS platform that uses AI to automate customer support while allowing human agents to review and manage conversations.",
+  "features": [
+    "User authentication",
+    "Customer management",
+    "AI-powered support conversations",
+    "Conversation history",
+    "Human agent review",
+    "Analytics dashboard",
+    "Role-based access control"
+  ],
+  "architecture": {
+    "frontend": [
+      "Next.js",
+      "React",
+      "TypeScript"
+    ],
+    "backend": [
+      "FastAPI",
+      "Python",
+      "GraphQL"
+    ],
+    "database": [
+      "PostgreSQL",
+      "Redis"
+    ],
+    "infrastructure": [
+      "Docker",
+      "GitHub Actions",
+      "Cloud deployment"
+    ]
+  },
+  "api": [
+    "POST /auth/login",
+    "GET /customers",
+    "POST /conversations",
+    "GET /conversations/{id}",
+    "POST /ai/respond",
+    "GET /analytics"
+  ],
+  "database": [
+    "users",
+    "customers",
+    "conversations",
+    "messages",
+    "ai_runs",
+    "analytics_events"
+  ],
+  "implementation_plan": [
+    "Set up the Next.js frontend",
+    "Create the FastAPI backend",
+    "Configure PostgreSQL",
+    "Implement authentication",
+    "Create customer and conversation APIs",
+    "Integrate the AI service",
+    "Add streaming responses",
+    "Build the analytics dashboard",
+    "Add automated tests",
+    "Configure CI/CD and deployment"
+  ]
+}
+""".strip()
+
     def _response(self, prompt: str) -> str:
         prompt_lower = prompt.lower()
 
-        if any(word in prompt_lower for word in ["fastapi", "backend", "api"]):
+        if (
+            "project specification" in prompt_lower
+            or "return json with exactly these fields" in prompt_lower
+        ):
+            return self._project_response(prompt)
+
+        if any(
+            word in prompt_lower
+            for word in ["fastapi", "backend", "api"]
+        ):
             return (
-                "FastAPI is a strong choice for an AI backend because it provides "
-                "async request handling, automatic API documentation, and built-in "
-                "validation through Pydantic.\n\n"
+                "FastAPI is a strong choice for an AI backend because it "
+                "provides async request handling, automatic API documentation, "
+                "and built-in validation through Pydantic.\n\n"
                 "For Nexora AI, the backend handles AI requests, streaming "
                 "responses, and application logic while keeping the frontend "
                 "independent from the AI provider."
@@ -43,7 +118,10 @@ class DemoAI:
                 "and multiple AI providers."
             )
 
-        if any(word in prompt_lower for word in ["hello", "hi", "hey"]):
+        if any(
+            word in prompt_lower
+            for word in ["hello", "hi", "hey"]
+        ):
             return (
                 "Hello! I'm Nexora AI. I can help you explore the platform, "
                 "architecture, APIs, and AI-powered workflows."
@@ -59,7 +137,10 @@ class DemoAI:
             "an external API dependency."
         )
 
-    async def generate(self, prompt: str) -> tuple[str, dict[str, int]]:
+    async def generate(
+        self,
+        prompt: str,
+    ) -> tuple[str, dict[str, int]]:
         content = self._response(prompt)
 
         await asyncio.sleep(0.4)
@@ -75,13 +156,17 @@ class DemoAI:
 
         return content, usage
 
-    async def stream(self, prompt: str) -> AsyncIterator[str]:
+    async def stream(
+        self,
+        prompt: str,
+    ) -> AsyncIterator[str]:
         content = self._response(prompt)
+        words = content.split(" ")
 
-        for index, word in enumerate(content.split(" ")):
+        for index, word in enumerate(words):
             chunk = word
 
-            if index < len(content.split(" ")) - 1:
+            if index < len(words) - 1:
                 chunk += " "
 
             yield chunk

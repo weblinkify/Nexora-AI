@@ -1,7 +1,6 @@
 import Link from "next/link";
 import AIChat from "../components/AIChat";
 
-
 export default function Home() {
   return (
     <main className="min-h-screen">
@@ -23,6 +22,12 @@ export default function Home() {
               className="rounded-full border border-zinc-800 bg-zinc-900 px-4 py-2 text-xs text-zinc-300 transition hover:border-zinc-700 hover:text-white"
             >
               Dashboard
+            </Link>
+            <Link
+              href="/projects/new"
+              className="rounded-full border border-white/10 bg-white px-4 py-2 text-xs font-medium text-black transition hover:bg-white/90"
+            >
+              Build with AI
             </Link>
 
             <div className="rounded-full border border-zinc-800 bg-zinc-900 px-3 py-1 text-xs text-zinc-400">

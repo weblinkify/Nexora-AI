@@ -5,13 +5,13 @@ from fastapi.responses import StreamingResponse
 from app.ai.exceptions import AIProviderError
 from app.ai.models import AIRequest, AIResponse
 from app.ai.service import AIService
+from app.projects.router import router as project_router
 
 app = FastAPI(
     title="Nexora AI",
     description="AI-native full-stack application platform.",
     version="1.0.0",
 )
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -23,6 +23,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(project_router)
 
 
 @app.get("/health")

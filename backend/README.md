@@ -346,11 +346,6 @@ deployment.
 ```bash
 cd apps/api
 source .venv/bin/activate
-```
-
-### Run API
-
-```bash
 python -m uvicorn app.main:app --reload --port 8000
 ```
 
