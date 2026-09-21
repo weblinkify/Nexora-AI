@@ -25,7 +25,9 @@ class ProjectService:
 
         try:
             data = json.loads(response.content)
+
             return ProjectResponse.model_validate(data)
+
         except Exception as exc:
             raise AIProviderError(
                 "AI returned an invalid project specification"
