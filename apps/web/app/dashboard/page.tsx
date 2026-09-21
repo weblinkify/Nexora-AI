@@ -44,7 +44,7 @@ const projects = [
 
 export default function DashboardPage() {
   return (
-    <main className="min-h-screen bg-[#050505] text-white">
+    <main className="min-h-screen bg-[#212121] text-white">
       <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
         <header className="mb-10 flex flex-col gap-5 border-b border-white/10 pb-8 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -59,7 +59,7 @@ export default function DashboardPage() {
           </div>
 
           <Link
-            href="/"
+            href="/projects/new"
             className="rounded-xl bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:bg-white/90"
           >
             New AI Project

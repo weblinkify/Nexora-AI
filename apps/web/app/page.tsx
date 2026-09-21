@@ -5,21 +5,6 @@ export default function Home() {
     <main className="min-h-screen">
       <div className="mx-auto flex max-w-7xl flex-col px-6 py-12">
         <section className="flex flex-1 flex-col items-center">
-          <div className="mb-10 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[10px] uppercase tracking-[0.18em] text-white/35">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              AI Workspace
-            </div>
-
-            <h2 className="mt-6 text-4xl font-semibold tracking-tight md:text-5xl">
-              Build intelligent applications.
-            </h2>
-
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-white/35">
-              Explore ideas, design architectures, and turn software
-              concepts into production-ready engineering plans.
-            </p>
-          </div>
 
           <div className="w-full max-w-5xl">
             <AIChat />

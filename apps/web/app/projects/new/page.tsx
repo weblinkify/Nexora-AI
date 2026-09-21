@@ -150,7 +150,7 @@ export default function NewProjectPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white">
+    <main className="min-h-screen bg-[#212121] text-white">
       <div className="mx-auto max-w-[1400px] pb-6 py-8">
         {!project && !loadingArchitecture && (
           <IdeaComposer
@@ -419,7 +419,7 @@ function ArchitectureResult({
         />
       </div>
 
-      <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-8">
+      <div className="rounded-3xl border border-[#3F3F46] bg-[#2A2A2A] p-8">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-white/25">
@@ -447,7 +447,7 @@ function ArchitectureResult({
                   {String(index + 1).padStart(2, "0")}
                 </span>
 
-                <span className="text-sm leading-6 text-white/55">
+                <span className="text-sm leading-6 text-gray-200">
                   {step}
                 </span>
               </div>
@@ -731,7 +731,7 @@ function LoadingShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-8">
+    <div className="rounded-3xl border border-[#3F3F46] bg-[#2A2A2A] p-8">
       <p className="text-xs uppercase tracking-[0.2em] text-white/25">
         {eyebrow}
       </p>
@@ -803,7 +803,7 @@ function ArchitectureCard({
         {items.map((item) => (
           <div
             key={item}
-            className="rounded-lg bg-black/20 px-3 py-2.5 text-sm text-white/50"
+            className="rounded-lg bg-[#303030] px-3 py-2.5 text-sm text-gray-200"
           >
             {item}
           </div>
