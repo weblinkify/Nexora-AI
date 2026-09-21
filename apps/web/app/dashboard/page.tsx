@@ -48,12 +48,6 @@ export default function DashboardPage() {
       <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
         <header className="mb-10 flex flex-col gap-5 border-b border-white/10 pb-8 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <Link
-              href="/"
-              className="text-sm text-white/50 transition hover:text-white"
-            >
-              ← Nexora AI
-            </Link>
 
             <h1 className="mt-3 text-3xl font-semibold tracking-tight">
               AI Dashboard

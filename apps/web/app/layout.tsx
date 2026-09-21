@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Navbar from "../components/Navbar";
 
 export const metadata: Metadata = {
   title: "Nexora AI",
-  description: "Build intelligent applications. Ship them like software.",
+  description:
+    "AI-native full-stack application platform.",
 };
 
 export default function RootLayout({
@@ -13,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="min-h-screen bg-[#050505] text-white">
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
