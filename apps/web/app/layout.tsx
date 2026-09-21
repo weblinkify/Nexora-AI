@@ -15,9 +15,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-[#050505] text-white">
+      <body className="h-screen overflow-hidden bg-[#050505] text-white">
         <Navbar />
-        {children}
+
+        <div className="h-[calc(100vh-73px)] overflow-y-auto [scrollbar-gutter:stable]">
+          {children}
+        </div>
       </body>
     </html>
   );
