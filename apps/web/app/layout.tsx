@@ -18,7 +18,7 @@ export default function RootLayout({
       <body className="h-screen overflow-hidden bg-[#050505] text-white">
         <Navbar />
 
-        <div className="h-[calc(100vh-73px)] overflow-y-auto [scrollbar-gutter:stable]">
+        <div id="page-scroll" className="h-[calc(100vh-73px)] overflow-y-auto">
           {children}
         </div>
       </body>

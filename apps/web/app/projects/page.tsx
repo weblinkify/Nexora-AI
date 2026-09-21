@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   ProjectResponse,
@@ -33,6 +33,12 @@ export default function NewProjectPage() {
     useState(false);
 
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (loadingCode) {
+      document.getElementById("page-scroll")?.scrollTo(0, 0);
+    }
+  }, [loadingCode]);
 
   async function architectIdea() {
     if (!idea.trim()) {
@@ -71,7 +77,7 @@ export default function NewProjectPage() {
       if (!response.ok) {
         throw new Error(
           extractError(data) ||
-            "Unable to architect this idea.",
+          "Unable to architect this idea.",
         );
       }
 
@@ -113,7 +119,7 @@ export default function NewProjectPage() {
       if (!response.ok) {
         throw new Error(
           extractError(data) ||
-            "Unable to generate the application code.",
+          "Unable to generate the application code.",
         );
       }
 

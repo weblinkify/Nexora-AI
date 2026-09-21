@@ -20,7 +20,7 @@ export function ArchitectureResult({
   onExportArchitecture,
 }: Props) {
   return (
-    <section className="mt-14 space-y-6">
+    <section className="space-y-6">
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
           <p className="text-xs uppercase tracking-[0.2em] text-white/25">
@@ -128,7 +128,7 @@ export function ArchitectureResult({
           </span>
         </div>
 
-        <div className="mt-7 grid gap-3 md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2">
           {project.implementation_plan.map(
             (step, index) => (
               <div
