@@ -39,7 +39,7 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="/projects/new"
+            href="/projects"
             className="ml-2 rounded-lg bg-white px-4 py-2 text-xs font-medium text-black transition hover:bg-white/90"
           >
             Architect an Idea →
