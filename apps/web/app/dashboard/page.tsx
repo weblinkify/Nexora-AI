@@ -1,9 +1,9 @@
-import { ActivityChart } from "./ActivityChart";
-import { AIPipeline } from "./AIPipeline";
-import { DashboardFooter } from "./DashboardFooter";
-import { DashboardHeader } from "./DashboardHeader";
-import { MetricsGrid } from "./MetricsGrid";
-import { RecentProjects } from "./RecentProjects";
+import { ActivityChart } from "./components/ActivityChart";
+import { AIPipeline } from "./components/AIPipeline";
+import { DashboardFooter } from "./components/DashboardFooter";
+import { DashboardHeader } from "./components/DashboardHeader";
+import { MetricsGrid } from "./components/MetricsGrid";
+import { RecentProjects } from "./components/RecentProjects";
 
 export default function DashboardPage() {
   return (
